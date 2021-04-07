@@ -1,0 +1,47 @@
+#sidebar {
+  width: 50px;
+  background-color: #EDEDED;
+  height: 100%;
+  position: absolute;
+}
+
+#sidebar #sideBarHeader{
+  height: 14px;
+  font-size: 10px;
+  text-align: right;
+  padding-right: 3px;
+  background-color: #E0E0E0;
+  cursor: pointer;
+}
+
+#sidebar p {
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 16px;
+  margin-top: 4px;
+  height: 30px;
+  margin-left: 11px;
+
+}
+
+#sidebar p.sideBarItemHide {
+  margin-top: 5px;
+}
+
+#sidebar p.sideBarItemShow {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 11px;
+  align-items: center;
+}
+
+#sidebar .sideBarItemShow span {
+  display: block;
+  font-size: 15px;
+  padding-left: 10px;
+}
+
+#sidebar .sideBarItemHide span {
+  display: none;
+  font-size: 15px;
+}

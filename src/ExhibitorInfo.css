@@ -1,0 +1,24 @@
+.ExhibitorInfo_logo {
+  padding-left: 0px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.ExhibitorInfo_companyProfile {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.ExhibitorInfo_companyInfo {
+  font-size: 16px;
+}
+
+.ExhibitorInfo_buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.ExhibitorInfo_buttonContainer > button {
+  margin-right: 2rem;
+}

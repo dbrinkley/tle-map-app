@@ -1,0 +1,18 @@
+.ExhibitorContact_container input,
+.ExhibitorContact_container textarea {
+  background-color: #F7F7F7;
+  border: 1px solid #8CBFA2;
+  color: #ADADAD;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.ExhibitorContact_container .btn_style {
+  width: 100%;
+}
+
+.ExhibitorContact_container p {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

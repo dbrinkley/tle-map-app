@@ -1,0 +1,18 @@
+.ExhibitorList_Item {
+  align-items: center;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.ExhibitorList_Item img {
+  width: 100%;
+  height: 100%;
+}
+
+.ExhibitorList_Item p {
+  margin: 0px;
+}
+
+.ExhibitorList_container h2 {
+  font-size: 22px;
+}

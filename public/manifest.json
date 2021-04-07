@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "TLE Map App",
+  "name": "The Landscape Expo 2021 Interactive Map",
   "icons": [
     {
       "src": "favicon.ico",

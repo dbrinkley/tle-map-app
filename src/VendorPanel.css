@@ -1,0 +1,51 @@
+.vendorPanelContainer {
+  max-height: 780px;
+  padding-left: 0px;
+  padding-right: 0px;
+
+}
+
+.vendorPanelContainer_overflow {
+  max-height: 780px;
+  overflow: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  
+}
+.VendorPanel_Button {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border: 1px solid #8CBFA2;
+  background: #ffffff;
+  position: absolute;
+  color: #8CBFA2;
+  width: 50px;
+  height: 40px;
+  cursor: pointer;
+  left: -50px;
+  z-index: 5;
+  top: 32px;
+  transition: 200ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.VendorPanel_Button_Back {
+  top: 25px;
+  height: 50px;
+}
+
+.VendorPanel_Button_Home {
+  top: 84px;
+  height: 35px;
+}
+
+.VendorPanel_Button:hover {
+  background-color: #8CBFA2;
+  color: #ffffff;
+}
+
+.VendorPanel_Button img {
+  width: 80%;
+}

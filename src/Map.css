@@ -1,0 +1,44 @@
+.Map_container {
+  max-height: 780px;
+  border-right: 1px solid #BFBFBF;
+  padding: 0px;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.SVGMap_container {
+  margin: 0 auto; width: 100%; overflow: hidden;
+  height: 100%;
+}
+
+.Map_container.col-md-8 {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.Map_container #svgItem {
+  width: 100%;
+  height: 100%;
+}
+
+.Map_selectedBooth {
+  stroke-width: 1px !important;
+  stroke: red !important;
+}
+
+
+
+
+.st0{fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;}
+.st1{fill:#FFFFFF;stroke:#010101;stroke-width:0.5;}
+.st2{fill:#FFFFFF;stroke:#000000;stroke-width:0.5;}
+.st3{display:none;}
+.st4{display:inline;}
+.st5{font-family:'ArialMT';}
+.st6{font-size:5.7177px;}
+.st7{font-size:5.7176px;}
+.st8{font-size:5.7178px;}
+.st9{fill:none;stroke:#BA141A;stroke-linecap:round;stroke-linejoin:round;}
+.st10{opacity:0.25;}
+.st11{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;}

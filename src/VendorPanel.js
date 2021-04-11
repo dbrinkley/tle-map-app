@@ -8,7 +8,7 @@ import SearchResults from "./SearchResults";
 import PurchaseBoothInfo from './PurchaseBoothInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faHome } from '@fortawesome/free-solid-svg-icons'
-import { Switch, Route, useParams, useHistory, useLocation, BrowserRouter } from "react-router-dom";
+import { Switch, Route, useParams, useHistory, useLocation } from "react-router-dom";
 // import axios from 'axios';
 
 
@@ -23,7 +23,7 @@ import { Switch, Route, useParams, useHistory, useLocation, BrowserRouter } from
 
 
 
-const VendorPanel = React.memo((props) => {
+const VendorPanel = React.memo(({exhibitorClick, exhibitorId, setIdAndBooth}) => {
 
   // const [id, setId] = useState(props.exhibitorId);
   const [backBtnToggle, setBackBtnToggle] = useState(false);
@@ -33,11 +33,13 @@ const VendorPanel = React.memo((props) => {
   let history = useHistory();
   let location = useLocation();
 
+  const handleSetIdAndBooth = (id, booth) => {
+    setIdAndBooth(id, booth);
+  }
 
 
   //maybe need to use useCallback()
   useEffect(()=>{
-    // setId(props.exhibitorId);
     if(location.pathname !== '/'){
       setBackBtnToggle(true);
       setHomeBtnToggle(true);
@@ -45,27 +47,27 @@ const VendorPanel = React.memo((props) => {
       setBackBtnToggle(false);
       setHomeBtnToggle(false);
     }
-  }, [location.pathname, props.exhibitorId])
+    let id = location.pathname.match(/(\/\d{3,})/g);
+    id = id !== null
+      ? id[0].substring(1)
+      : 0;
+
+    const booth = id !== 0 ? ExhibitorObj[id].block_name : 0;
+
+    handleSetIdAndBooth(id, booth);
+
+  }, [location.pathname, exhibitorId])
 
 
+  //not used currently
+  // const usePrevious = (id) => {
+  //   const ref = useRef();
+  //   useEffect(() => {
+  //     ref.current = id;
+  //   });
+  //   return ref.current;
+  // }
 
-  const usePrevious = (id) => {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = id;
-    });
-    return ref.current;
-  }
-
-
-  const BoothClickFn = () => {    
-    const prevExhibitorId = usePrevious(props.exhibitorId);
-
-    if(prevExhibitorId !== props.exhibitorId && props.exhibitorId !== 0){
-      history.push(`/exhibitors/${props.exhibitorId}/`, )
-      console.log("boothClickFn");
-    }
-  }
 
   
   const ExhibitorInfoFn = () => {
@@ -76,6 +78,7 @@ const VendorPanel = React.memo((props) => {
         : <PurchaseBoothInfo />;
   }
 
+
   const ExhibitorContactFn = () => {
     let {id} = useParams();
   
@@ -85,27 +88,9 @@ const VendorPanel = React.memo((props) => {
   }
 
 
-  
-
   const BackButton = () => {
-
-    let id = location.pathname.match(/(\/\d{3,})/g);
-    id = id !== null
-      ? id[0].substring(1)
-      : 0;
   
-      const prevExhibitorId = usePrevious(props.exhibitorId);
-      console.log(prevExhibitorId + " " + id);
-
-    // const booth = ExhibitorObj[id].block_name;
-
-
-    const goBack = () => {
-      console.log(id);
-
-      props.setIdAndBooth(id, 0);
-      history.goBack();
-    }
+    const goBack = () => history.goBack();
   
     if(backBtnToggle) {
       return (
@@ -117,10 +102,11 @@ const VendorPanel = React.memo((props) => {
     return null;
   }
 
+
   const HomeButton = () => {
 
     const reset = () => {
-      props.setIdAndBooth(0,0);
+      setIdAndBooth(0,0);
       history.push(`/`);
     }
 
@@ -223,13 +209,12 @@ const VendorPanel = React.memo((props) => {
 
   return (
     <div className="vendorPanelContainer col-lg-4">
-      <div className="vendorPanelContainer_overflow">
+      <div className="vendorPanelContainer_overflow pt-4">
         <BackButton />
         <HomeButton />
           <Switch>
-            <Route exact path='/' render={() => <ExhibitorList exhibitorClick={props.exhibitorClick} />}/>
+            <Route exact path='/' render={() => <ExhibitorList exhibitorClick={exhibitorClick} />}/>
             <Route exact path='/exhibitors/:id' component={ExhibitorInfoFn}/>
-            {BoothClickFn()}
             <Route exact path='/exhibitors/contact/:id' component={ExhibitorContactFn}/>
             <Route exact path='/search/:option/:key' component={SearchResultsFn} />
           </Switch>

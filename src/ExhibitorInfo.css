@@ -7,6 +7,8 @@
 .ExhibitorInfo_companyProfile {
   font-size: 14px;
   line-height: 1.4;
+  max-height: 268px;
+  overflow: hidden;
 }
 
 .ExhibitorInfo_companyInfo {

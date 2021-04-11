@@ -1,0 +1,18 @@
+.Rectangle_boothText-Name {
+  pointer-events: none;
+  font-size: 12px;
+}
+
+.Rectangle_boothText-Number {
+  pointer-events: none;
+  font-size: 12px;
+} 
+
+.Rectangle_booth {
+  fill: #ffffff;
+  stroke: #010101;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 0.25px;
+  cursor: pointer;
+}

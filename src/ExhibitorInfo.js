@@ -13,11 +13,13 @@ class ExhibitorInfo extends Component {
   }
 
 
+  // handleViewMore
+/* <span id="dots">...</span><span id="more"></span> */
+// https://www.w3schools.com/howto/howto_js_read_more.asp
+
   render() {
     const exhibitor = this.props.exhibitObj;
-    
-
-
+   
     return (
       <div className="ExhibitorInfo_container">
         <h2>{exhibitor.company_name}</h2>
@@ -34,9 +36,7 @@ class ExhibitorInfo extends Component {
         </p>
         <div className="ExhibitorInfo_buttonContainer">
           <button className="btn_style" onClick={this.handleProductClick}>View Products</button>
-          {/* <button className="btn_style" onClick={this.handleContactClick}>Contact Company</button> */}
           <Link to={`/exhibitors/contact/${exhibitor.vendor_id}`}>
-            {/* <button className="btn_style" onClick={this.handleContactClick}>Contact Company</button> */}
             <button className="btn_style">Contact Company</button>
           </Link>
         </div>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Map.css";
 import Sidebar from "./Sidebar";
-import "./SVGMap.css";
 import * as d3 from 'd3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Rectangle from './Rectangle'
@@ -18,9 +17,8 @@ class Map extends Component {
    
   }
 
-	
-//TODO: make on booth click push to history state and attempt to remove booth click from vendorPanel.js
-//TODO: get back button to update id and then use that id for selecting correct booth with red border
+//TODO: handle forsale booths, needs to link to something that displays for sale info in vendorpanel
+//TODO: add read more button to long compnay info text
 //TODO: import newest map for 2021
 //TODO: create node js and use sql to create tables for exhibitors
 //TODO: feed exhibitor info into program on load
@@ -65,7 +63,7 @@ class Map extends Component {
 
   handleBoothClick = (event) => {
     this.props.boothClick(event.target.dataset.booth);
-    d3.select(this.mapRef.current).selectAll('.booth').classed('Map_selectedBooth', false);
+    d3.select(this.mapRef.current).selectAll('.Map_booth').classed('Map_selectedBooth', false);
     d3.select(event.target).classed('Map_selectedBooth', true);
   }
 
@@ -206,24 +204,14 @@ class Map extends Component {
 
 <Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={32.08} y={499.26} width={125.19} height={171.95} booth={'100'} vendorId={42676} textX={32.08} textY={499.26} />
 <Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={62.66} y={452.68} width={47.5} height={31.26} booth={'125'} vendorId={7284} textX={62.66} textY={452.68}/>
-<Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={62.66} y={405.96} width={47.5} height={31.26} booth={'131'} vendorId={0} textX={62.66} textY={405.96}/>
+<Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={62.66} y={405.96} width={47.5} height={31.26} booth={'131'} vendorId={43521} textX={62.66} textY={405.96}/>
 <Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={62.66} y={359.12} width={47.5} height={31.26} booth={'137'} vendorId={0} textX={62.66} textY={359.12}/>
-<Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={125.78} y={437.08} width={31.26} height={31.26} booth={'228'} vendorId={0} textX={125.78} textY={437.08}/>
+<Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={125.78} y={437.08} width={31.26} height={31.26} booth={'228'} vendorId={4644} textX={125.78} textY={437.08}/>
 <Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={125.78} y={389.94} width={31.26} height={31.26} booth={'234'} vendorId={0} textX={125.78} textY={389.94}/>
 <Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={125.78} y={343.11} width={31.26} height={31.26} booth={'240'} vendorId={0} textX={125.78} textY={343.11}/>
 <Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={125.78} y={296.01} width={15.63} height={31.26} booth={'246'} vendorId={0} textX={125.78} textY={296.01}/>
 <Rectangle handleBoothClick={this.handleBoothClick} selectedBooth={this.props.selectedBooth} x={125.68} y={249.06} width={15.63} height={31.26} booth={'252'} vendorId={0} textX={125.68} textY={249.06}/>
 
-  {/* <rect x="32.08" y="499.26" className="st1" width="125.19" height="171.95" data-booth="100" data-venid="0000" onClick={this.handleBoothClick} />
-	<rect x="62.66" y="452.68" className="st1" width="47.5" height="31.26" data-booth="125" data-venid="0000" onClick={this.handleBoothClick} />
-	<rect x="62.66" y="405.96" className="st1" width="47.5" height="31.26" data-booth="131" data-venid="0000" onClick={this.handleBoothClick} />
-	<rect x="62.66" y="359.12" className="st1" width="47.5" height="31.26" data-booth="137" data-venid="0000" onClick={this.handleBoothClick} />
-
-	<rect x="125.78" y="437.08" className="st1" width="31.26" height="31.26" data-booth="228" data-venid="0000" onClick={this.handleBoothClick} />
-	<rect x="125.78" y="389.94" className="st1" width="31.26" height="31.26" data-booth="234" data-venid="0000" onClick={this.handleBoothClick} />
-  <rect x="125.78" y="343.11" className="st1" width="31.26" height="31.26" data-booth="240" data-venid="0000" onClick={this.handleBoothClick} />
-  <rect x="125.78" y="296.01" className="st1" width="15.63" height="31.26" data-booth="246" data-venid="0000" onClick={this.handleBoothClick} />
-  <rect x="125.68" y="249.06" className="st1" width="15.63" height="31.26" data-booth="252" data-venid="0000" onClick={this.handleBoothClick} /> */}
 
 <g id="Booths">
   <rect x="52.57" y="219.24" transform="matrix(0.6428 -0.766 0.766 0.6428 -152.3617 127.3635)" className="st1" width="15.63" height="15.63" data-booth="253" data-venid="0000" onClick={this.handleBoothClick} />

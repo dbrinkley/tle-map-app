@@ -4,7 +4,7 @@ import Map from './Map';
 import './InteractiveMap.css';
 import VendorPanel from './VendorPanel';
 import Navbar from "./images/navbar-placeholder.jpg";
-import { Redirect, History } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import ExhibitorObj from "./ExhibitorObj";
 
 
@@ -24,9 +24,7 @@ class InteractiveMap extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    // if (prevState.searchOption !== this.state.searchOption || prevState.searchInput !== this.state.searchInput) {
-    //   this.a = "";
-    // }
+
     if(this.state.searchRedirect === true){
       this.setState({
         searchRedirect: false
@@ -44,24 +42,27 @@ class InteractiveMap extends Component {
   
 
   handleBoothClick = (booth) => {
+    if(parseInt(booth) !== this.state.selectedBooth){   
 
-    console.log('handleBoothClick');
+      const vendor = Object.keys(ExhibitorObj)
+          .filter( key => ExhibitorObj[key].block_name === booth)
+          .reduce( (res, key) => (res[key] = ExhibitorObj[key]), {} );
 
-    const vendor = Object.keys(ExhibitorObj)
-        .filter( key => ExhibitorObj[key].block_name === booth)
-        .reduce( (res, key) => (res[key] = ExhibitorObj[key]), {} );
-
-
-    if(vendor.hasOwnProperty('vendor_id')){
-      this.setState({
-        exhibitorId: parseInt(vendor.vendor_id),
-        selectedBooth: parseInt(booth)
-      })
-    } else {
-      this.setState({
-        exhibitorId: 0,
-        selectedBooth: parseInt(booth)
-      })
+      if(vendor.hasOwnProperty('vendor_id')){
+        this.setState({
+          exhibitorId: parseInt(vendor.vendor_id),
+          selectedBooth: parseInt(booth)
+        }, function(){
+          this.props.history.push(`/exhibitors/${this.state.exhibitorId}/`)
+        })
+      } else {
+        this.setState({
+          exhibitorId: 0,
+          selectedBooth: parseInt(booth)
+        }, function(){
+          this.props.history.push(`/`)
+        })
+      }
     }
   }
 
@@ -98,4 +99,4 @@ class InteractiveMap extends Component {
   }
 }
 
-export default InteractiveMap
+export default withRouter(InteractiveMap);

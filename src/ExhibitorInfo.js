@@ -12,6 +12,52 @@ class ExhibitorInfo extends Component {
     window.open("https://thelandscapeexpo.com/landscape-design-products/featherock-inc/12890", "_blank")
   }
 
+  displayViewMore(exhibitorProfile){
+    let first, second;
+    const readMore = exhibitorProfile.length > 750;
+
+    if(readMore){
+      first = exhibitorProfile.slice(0,750);
+      second = exhibitorProfile.slice(750);
+    } else {
+      first = exhibitorProfile;
+      second = '';
+    }
+
+    return readMore
+      ? (
+        <p className="ExhibitorInfo_companyProfile">
+          {first}
+          <span id="ExhibitorInfo_ReadMore_Dots">...  </span>
+          <span id="ExhibitorInfo_ReadMore_More">
+            {second}
+          </span>
+          <button onClick={this.handleViewMore} id="ExhibitorInfo_ReadMore_Btn">Read more</button>
+        </p>
+      ) 
+      : (
+        <p className="ExhibitorInfo_companyProfile">
+          {first}
+        </p>
+      )
+  }
+
+  handleViewMore(){
+    var dots = document.getElementById("ExhibitorInfo_ReadMore_Dots");
+    var moreText = document.getElementById("ExhibitorInfo_ReadMore_More");
+    var btnText = document.getElementById("ExhibitorInfo_ReadMore_Btn");
+  
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Read more";
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Read less";
+      moreText.style.display = "inline";
+    }
+  }
+
 
   // handleViewMore
 /* <span id="dots">...</span><span id="more"></span> */
@@ -19,6 +65,10 @@ class ExhibitorInfo extends Component {
 
   render() {
     const exhibitor = this.props.exhibitObj;
+
+    // let profile = exhibitor.profile.length > 750
+    //   ? exhibitor.profile.slice(0, 750) + '<span id="ExhibitorInfo_dots">...</span><span id="ExhibitorInfo_More">' + exhibitor.profile.slice(750) + '</span>'
+    //   : exhibitor.profile;
    
     return (
       <div className="ExhibitorInfo_container">
@@ -31,9 +81,7 @@ class ExhibitorInfo extends Component {
           Fax: {exhibitor.fax}<br />
           <a href="fillerWebsite.com" target="_blank">fillerWebsite.com</a>
         </p>
-        <p className="ExhibitorInfo_companyProfile">
-          {exhibitor.profile}
-        </p>
+        {this.displayViewMore(exhibitor.profile)}
         <div className="ExhibitorInfo_buttonContainer">
           <button className="btn_style" onClick={this.handleProductClick}>View Products</button>
           <Link to={`/exhibitors/contact/${exhibitor.vendor_id}`}>

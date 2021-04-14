@@ -1,0 +1,1 @@
+ExhibitorApi.checkBooth(booth)

@@ -2,13 +2,13 @@
   padding-left: 0px;
   margin-top: 20px;
   margin-bottom: 30px;
+  max-height: 200px;
+  width: auto;
 }
 
 .ExhibitorInfo_companyProfile {
   font-size: 14px;
-  line-height: 1.4;
-  max-height: 268px;
-  overflow: hidden;
+  line-height: 1.5;
 }
 
 .ExhibitorInfo_companyInfo {
@@ -23,4 +23,18 @@
 
 .ExhibitorInfo_buttonContainer > button {
   margin-right: 2rem;
+}
+
+#ExhibitorInfo_ReadMore_More {
+  display: none;
+}
+
+#ExhibitorInfo_ReadMore_Btn {
+  border: none;
+  background: transparent;
+  font-weight: bold;
+  font-style: italic;
+  color: rgba(27,128,71,0.8);
+  padding: 0px;
+  display: block;
 }

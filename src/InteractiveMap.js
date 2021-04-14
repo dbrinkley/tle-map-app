@@ -53,14 +53,14 @@ class InteractiveMap extends Component {
           exhibitorId: parseInt(vendor.vendor_id),
           selectedBooth: parseInt(booth)
         }, function(){
-          this.props.history.push(`/exhibitors/${this.state.exhibitorId}/`)
+          this.props.history.push(`/exhibitors/${this.state.exhibitorId}`)
         })
       } else {
         this.setState({
           exhibitorId: 0,
           selectedBooth: parseInt(booth)
         }, function(){
-          this.props.history.push(`/`)
+          this.props.history.push(`/booth/${this.state.selectedBooth}`)
         })
       }
     }

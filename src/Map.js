@@ -63,6 +63,7 @@ class Map extends Component {
 
   handleBoothClick = (event) => {
     this.props.boothClick(event.target.dataset.booth);
+		// console.log(event.target.dataset);
     d3.select(this.mapRef.current).selectAll('.Map_booth').classed('Map_selectedBooth', false);
     d3.select(event.target).classed('Map_selectedBooth', true);
   }
@@ -70,7 +71,6 @@ class Map extends Component {
 
 
   render() {
-
 
     return (
       <div className="Map_container col-md-8">

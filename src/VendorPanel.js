@@ -4,8 +4,9 @@ import ExhibitorList from "./ExhibitorList";
 import ExhibitorInfo from "./ExhibitorInfo";
 import ExhibitorObj from "./ExhibitorObj";
 import ExhibitorContact from "./ExhibitorContact";
+import ExhibitorApi from "./ExhibitorApi/ExhibitorApi";
 import SearchResults from "./SearchResults";
-import PurchaseBoothInfo from './PurchaseBoothInfo';
+import BoothForSale from './BoothForSale';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faHome } from '@fortawesome/free-solid-svg-icons'
 import { Switch, Route, useParams, useHistory, useLocation } from "react-router-dom";
@@ -47,12 +48,20 @@ const VendorPanel = React.memo(({exhibitorClick, exhibitorId, setIdAndBooth}) =>
       setBackBtnToggle(false);
       setHomeBtnToggle(false);
     }
-    let id = location.pathname.match(/(\/\d{3,})/g);
-    id = id !== null
-      ? id[0].substring(1)
-      : 0;
+    let id = location.pathname.match(/((exhibitors)\/\d{3,})/g);
+    let booth = location.pathname.match(/((booth)\/\d{3,})/g);;
 
-    const booth = id !== 0 ? ExhibitorObj[id].block_name : 0;
+    if(id !== null){
+      id = id[0].substring(11);
+      booth = id !== 0 ? ExhibitorObj[id].block_name : 0;
+    } else if(booth !== null) {
+      id = 0;
+      booth = booth[0].substring(6);
+    } else {
+      id = 0;
+      booth = 0;
+    }
+
 
     handleSetIdAndBooth(id, booth);
 
@@ -72,19 +81,23 @@ const VendorPanel = React.memo(({exhibitorClick, exhibitorId, setIdAndBooth}) =>
   
   const ExhibitorInfoFn = () => {
     let {id} = useParams();
-
-    return id !== "0"
-        ? <ExhibitorInfo exhibitObj={ExhibitorObj[id]} />
-        : <PurchaseBoothInfo />;
+    return <ExhibitorInfo exhibitObj={ExhibitorObj[id]} />
   }
 
 
   const ExhibitorContactFn = () => {
     let {id} = useParams();
-  
-    return (
-      <ExhibitorContact exhibitObj={ExhibitorObj[id]} />
-    )
+    return <ExhibitorContact exhibitObj={ExhibitorObj[id]} />
+  }
+
+  const BoothInfoFn = () => {
+    let {booth} = useParams();
+
+    const boothCheck = ExhibitorApi.checkBooth(booth);
+    return boothCheck === false
+      ? <BoothForSale booth={booth} />
+      : <ExhibitorInfo exhibitObj={ExhibitorObj[boothCheck]} />
+    
   }
 
 
@@ -217,6 +230,7 @@ const VendorPanel = React.memo(({exhibitorClick, exhibitorId, setIdAndBooth}) =>
             <Route exact path='/exhibitors/:id' component={ExhibitorInfoFn}/>
             <Route exact path='/exhibitors/contact/:id' component={ExhibitorContactFn}/>
             <Route exact path='/search/:option/:key' component={SearchResultsFn} />
+            <Route exact path='/booth/:booth' component={BoothInfoFn}/>
           </Switch>
       </div>
     </div>

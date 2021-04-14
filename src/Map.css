@@ -40,10 +40,28 @@ g rect, g path, g polygon {
   height: 100%;
 }
 
-.Map_selectedBooth {
-  stroke-width: 1px !important;
-  stroke: red !important;
+
+@keyframes flash {
+  0%, 50%, 100% {
+    stroke-width: 1px;
+  }
+  25%, 75%, 90% {
+    stroke-width: 2.5px;
+  }
 }
+
+.Map_selectedBooth {
+  stroke-width: 1px;
+  stroke: red !important;
+  animation-name: flash;
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
+}
+
 
 
 

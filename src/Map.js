@@ -4,9 +4,15 @@ import Sidebar from "./Sidebar";
 import * as d3 from 'd3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Rectangle from './Rectangle'
+import Zoom from './Util/Zoom.js'
 
+
+// let svgMap, allElements, zoom;
 
 class Map extends Component {
+
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,34 +20,58 @@ class Map extends Component {
     };
     this.mapRef = React.createRef();
     this.handleSidebarHeaderClick = this.handleSidebarHeaderClick.bind(this);
-   
+		this.handleSidebarZoomIn = this.handleSidebarZoomIn.bind(this);
+		this.handleSidebarZoomOut = this.handleSidebarZoomOut.bind(this);
+		this.handleSidebarFitToScreen = this.handleSidebarFitToScreen.bind(this);
   }
 
-//TODO: handle forsale booths, needs to link to something that displays for sale info in vendorpanel
-//TODO: add read more button to long compnay info text
 //TODO: import newest map for 2021
 //TODO: create node js and use sql to create tables for exhibitors
 //TODO: feed exhibitor info into program on load
 //TODO: style booth number in each box
-//TODO: create booth for sale on all booths not assigned
 
 
+//TODO: zoom answers are here: https://observablehq.com/@d3/programmatic-zoom, make map functions into class like in link
 
   componentDidMount() {
-
-    const svgMap = d3.select(this.mapRef.current);
-
-    var allElements = svgMap.selectAll('g');
-
-    svgMap.call(d3.zoom()
-    .scaleExtent([1, 10])
-    .on("zoom", zoom_actions));
-
-    function zoom_actions({transform}){
-       allElements.attr("transform", transform);
-    }
-    
+		this.zoom();
   }
+
+	
+
+	zoom(){
+		let svgMap = d3.select(this.mapRef.current);
+
+    let allElements = svgMap.selectAll('g');
+
+	  let zoom = d3.zoom()
+    .scaleExtent([1, 4])
+    .on("zoom", zoomed);
+
+    svgMap.call(zoom);
+
+		function zoomed({transform}) {
+			allElements.attr('transform', transform);
+		};
+
+
+			document.getElementById('sideBar_ZoomIn').addEventListener('click', () => {
+				svgMap.transition().call(zoom.scaleBy, 1.5)
+			})
+			document.getElementById('sideBar_ZoomOut').addEventListener('click', () => {
+				svgMap.transition().call(zoom.scaleBy, 0.5)
+			})
+			document.getElementById('sideBar_ScaleToFit').addEventListener('click', () => {
+				svgMap.transition().duration(750).call(
+					zoom.transform,
+					d3.zoomIdentity,
+					d3.zoomTransform(svgMap.node()).invert([612 / 2, 793 / 2])
+				);
+			})
+	}
+	
+
+
 
   //causes sidebar not to work
   // shouldComponentUpdate() {
@@ -51,6 +81,91 @@ class Map extends Component {
 
   componentDidUpdate(){
 
+  }
+
+	handleSidebarZoomIn(){
+		// this.transition(1.2);
+		// const svgMap = d3.select(this.mapRef.current);
+
+    // const allElements = svgMap.selectAll('g');
+
+		// const zoom = d3.zoom()
+		// 						.scaleExtent([1, 10])
+		// 						.on("zoom", zoomed);
+
+    // svgMap.call(zoom);
+
+    // // function zoom_actions({transform}){
+    // //    allElements.attr("transform", transform);
+    // // }
+    
+		// function zoomed({transform}) {
+		// 	allElements.attr('transform', `translate(${transform.x},  	 ${transform.y}) scale(${transform.k})`);
+		// };
+
+		// function transition(zoomLevel) {
+		// 	allElements.transition()
+		// 			.delay(100)
+		// 			.duration(700)
+		// 			.call(zoom.scaleBy, zoomLevel);
+		// }
+
+		// transition(1.2);
+    
+  }
+
+  handleSidebarZoomOut(){
+		// const svgMap = d3.select(this.mapRef.current);
+
+    // const allElements = svgMap.selectAll('g');
+
+		// const zoom = d3.zoom()
+		// 						.scaleExtent([1, 10])
+		// 						.on("zoom", zoomed);
+
+    // svgMap.call(zoom);
+
+		// function zoomed({transform}) {
+		// 	allElements.attr('transform', `translate(${transform.x},  	 ${transform.y}) scale(${transform.k})`);
+		// };
+
+		// function transition(zoomLevel) {
+		// 	allElements.transition()
+		// 			.delay(100)
+		// 			.duration(700)
+		// 			.call(zoom.scaleBy, zoomLevel);
+		// }
+
+		// transition(0.8);
+  }
+
+  handleSidebarFitToScreen(){
+		// const svgMap = d3.select(this.mapRef.current);
+
+    // const allElements = svgMap.selectAll('g');
+
+		// const zoom = d3.zoom()
+		// 						.scaleExtent([1, 10])
+		// 						.on("zoom", zoomed);
+
+    // svgMap.call(zoom);
+
+		// function zoomed({transform}) {
+		// 	allElements.attr('transform', `translate(${transform.x},  	 ${transform.y}) scale(${transform.k})`);
+		// };
+    
+
+		// function transition(zoomLevel) {
+		// 	allElements.transition()
+		// 			.delay(100)
+		// 			.duration(700)
+		// 			.call(zoom.scaleBy, zoomLevel);
+		// }
+
+		// svgMap.transition()
+    //     .delay(100)
+    //     .duration(700)
+    //     .call(zoom.scaleTo, 1);
   }
 
 
@@ -77,6 +192,9 @@ class Map extends Component {
         <Sidebar
           openClose={this.state.sidebarOpen}
           sidebarheaderClick={this.handleSidebarHeaderClick}
+					sidebarZoomIn={this.handleSidebarZoomIn}
+					sidebarZoomOut={this.handleSidebarZoomOut}
+					sidebarFitToScreen={this.handleSidebarFitToScreen}
         />
         <div className="SVGMap_container">
         {/* https://www.pluralsight.com/guides/how-to-load-svg-with-react-and-webpack */}

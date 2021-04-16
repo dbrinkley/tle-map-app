@@ -5,8 +5,6 @@ import './Rectangle.css'
 
 export default function Rectangle (props) {
 
-  //TODO: style tooltip differently for 'Booth Available'
-
   const vendorInfo = props.vendorId === 0 ? null : ExhibitorApi.getExhibitor(props.vendorId);
   const text = vendorInfo !== null ? vendorInfo.company_name + " - " + vendorInfo.block_name : "Booth Available";
   const vendorName = vendorInfo !== null ? vendorInfo.company_name : "";
